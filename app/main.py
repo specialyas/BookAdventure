@@ -30,6 +30,10 @@ def create_blog(blog: schema.Blog, db: Session = Depends(dependencies.get_db)):
     db.refresh(new_blog)
     return new_blog
 
+@app.get("/blog")
+def get_blogs(db: Session = Depends(dependencies.get_db)):
+    blogs = db.query(model.Blog).all()
+    return blogs
 
 #
 # @app.get("/blog/{id}")
