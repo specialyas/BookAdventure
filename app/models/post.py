@@ -6,9 +6,9 @@ from app.db.base import Base
 
 
 # Define a SQLAlchemy ORM model for the "blog" table
-class Blog(Base):
+class Post(Base):
     # Name of the database table
-    __tablename__ = "blog"
+    __tablename__ = "post"
 
     # Primary key column (unique identifier for each blog record)
     id = Column(Integer, primary_key=True)

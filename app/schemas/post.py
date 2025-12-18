@@ -9,13 +9,17 @@ from pydantic import BaseModel
 
 
 # Define a Pydantic model representing a blog post
-class Blog(BaseModel):
-    # Title of the blog post (required string)
+class PostCreate(BaseModel):
     title: str
-
-    # Main content/body of the blog post (required string)
     body: str
-
-    # Publication timestamp (optional)
-    # Defaults to the current UTC time
     published_at: Optional[datetime] = datetime.now(timezone.utc)
+
+
+class  PostOut(BaseModel):
+    id: int
+    title: str
+    body: str
+    # user_id: int
+
+    class Config:
+        form_attributes = True
