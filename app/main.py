@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from app.models import model
 from app.db.session import engine
-from app.api.v1.api import api_router
+from app.db.base import Base
+from app.routes import register_routers
 
 
 app = FastAPI(
@@ -9,7 +9,16 @@ app = FastAPI(
     description="This is an api for a blog"
 )
 
+@app.get('/')
+def root():
+    return {"message": "Hi from the homepage"}
 
-app.include_router(api_router, prefix="/api/v1")
 
-model.Base.metadata.create_all(bind=engine)
+
+# app.include_router(api_router, prefix="/api/v1")
+# api_router.include_router(posts.router)
+# api_router.include_router(users.router)
+
+register_routers(app)
+
+Base.metadata.create_all(bind=engine)

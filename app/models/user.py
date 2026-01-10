@@ -8,7 +8,7 @@ class User(Base):
     # username = Column(String, unique=True)
     email = Column(String, unique=True)
     password = Column(String, nullable=False)
-    createdAt = Column(TIMESTAMP(timezone=True),
+    created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text('now()'))
     updated_at = Column(TIMESTAMP(timezone=True),
                         nullable=False,
