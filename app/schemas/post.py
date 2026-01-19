@@ -12,14 +12,17 @@ from pydantic import BaseModel
 class PostCreate(BaseModel):
     title: str
     body: str
-    published_at: Optional[datetime] = datetime.now(timezone.utc)
+    # published_at: Optional[datetime] = datetime.now(timezone.utc)
 
 
-class  PostOut(BaseModel):
+class  PostResponse(BaseModel):
     id: int
     title: str
     body: str
-    # user_id: int
+    published_at: datetime
+    updated_at: Optional[datetime] = None
+
 
     class Config:
         form_attributes = True
+

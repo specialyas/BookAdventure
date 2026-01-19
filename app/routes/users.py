@@ -3,7 +3,7 @@ from fastapi import  Depends, APIRouter
 from sqlalchemy.orm import Session
 from app.schemas.response import StandardResponse
 from app.schemas.user import  UserIn, UserCreate, UserResponse
-# from app.schemas.user import UserCreate
+from app.schemas.pagination import PaginatedResponse
 from app.api.deps import get_db
 from app.services.user_service import UserService
 
@@ -17,14 +17,23 @@ router = APIRouter(
 def add_user(
     ): """
 
-@router.post('/', status_code=201)
+@router.post(
+        '/', 
+        response_model=StandardResponse[UserResponse],
+        summary="create a new user",
+        description="creates a new user with the information provided",
+        status_code=201)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     """create a new user"""
     return UserService.create_user(db, user)
 
 
 
-@router.get("/")
+@router.get("/",
+        response_model=PaginatedResponse[UserResponse],
+        summary="get all users",
+        description="returns all the users in the database"
+)
 def get_users(
     db: Session = Depends(get_db),
     page: int = 1,

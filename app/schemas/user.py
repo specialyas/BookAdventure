@@ -18,7 +18,7 @@ class UserIn(BaseModel):
 class UserResponse(BaseModel):
     id: int
     email: str
-    createdAt: datetime
+    created_at: datetime
     updated_at: Optional[datetime] = None
 
 

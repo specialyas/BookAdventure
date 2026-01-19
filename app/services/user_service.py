@@ -4,8 +4,11 @@ from sqlalchemy.exc import IntegrityError
 from app.models.user import User
 from app.schemas.user import UserCreate, UserResponse
 from app.schemas.response import StandardResponse
+from app.schemas.pagination import PaginatedResponse
 from app.utils import hash
 from app.utils.response import bad_request_response, success_response, not_found_response
+from app.utils.pagination import paginate_and_create_response
+from app.config.pagination import DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE
 
 
 
@@ -13,7 +16,7 @@ class UserService:
 
     # add a new user 
     @staticmethod
-    def create_user(db: Session, user: UserCreate) -> User:
+    def create_user(db: Session, user: UserCreate) -> StandardResponse[UserResponse]:
         """create new user"""
         if not user.email or not user.email.strip():
             raise bad_request_response("Email is required")
@@ -42,9 +45,9 @@ class UserService:
     def get_all_users(
         db: Session,
         page: int = 1,
-        size: int = 10,
+        size: int = DEFAULT_PAGE_SIZE,
         search_term:  Optional[str] = None,
-    ) -> dict:
+    ) -> PaginatedResponse[UserResponse]:
         """get all users with pagination"""
 
         try:
@@ -59,15 +62,21 @@ class UserService:
 
             user_responses = [UserResponse.model_validate(user) for user in users]
             user_dicts = [user.model_dump() for user in user_responses]
-            return success_response(
-                "Users retrieved successful",
-                data={
-                    "items": user_dicts,
-                    "total": total,
-                    "page": page,
-                    "size": size
-                }
-            )
+            return paginate_and_create_response(
+            query=query,
+            page=page,
+            per_page=size,
+            message="Categories retrieved successfully",
+        )
+            # return success_response(
+            #     "Users retrieved successful",
+            #     data={
+            #         "items": user_dicts,
+            #         "total": total,
+            #         "page": page,
+            #         "size": size
+            #     }
+            # )
         except Exception as e:
             raise bad_request_response(f"Error retrieving users: {str(e)}")
 
