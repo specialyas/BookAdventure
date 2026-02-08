@@ -19,6 +19,9 @@ def root():
 def root():
     return {"message": "ok"}
 
+@app.get('/beaty')
+def root():
+    return {"Hi Extraterrestrial!!!! Greetings from Earth😁😁😁😁"}
 
 
 # app.include_router(api_router, prefix="/api/v1")
