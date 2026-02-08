@@ -21,7 +21,8 @@ def root():
 
 @app.get('/beauty')
 def root():
-    return {"Hi Extraterrestrial!!!! Greetings from Earth😁😁😁😁"}
+    return {"Hi Extraterrestrial!!!! Greetings from Earth😁😁😁😁/n tell me what's wrong my baby"}
+
 
 
 # app.include_router(api_router, prefix="/api/v1")
