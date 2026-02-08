@@ -21,7 +21,7 @@ def root():
 
 @app.get('/beauty')
 def root():
-    return {"Hi Extraterrestrial!!!! Greetings from Earth😁😁😁😁/n tell me what's wrong my baby"}
+    return {"Why the long face?\n tell me what's wrong my baby"}
 
 
 
