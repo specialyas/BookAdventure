@@ -15,6 +15,10 @@ app = FastAPI(
 def root():
     return {"message": "Hi from the homepage"}
 
+@app.get('/health')
+def root():
+    return {"message": "ok"}
+
 
 
 # app.include_router(api_router, prefix="/api/v1")
