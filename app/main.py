@@ -19,7 +19,7 @@ def root():
 def root():
     return {"message": "ok"}
 
-@app.get('/beaty')
+@app.get('/beauty')
 def root():
     return {"Hi Extraterrestrial!!!! Greetings from Earth😁😁😁😁"}
 
